@@ -1,20 +1,21 @@
-FROM alpine:3.16.2 as builder
+# syntax=docker/dockerfile:1.3
+FROM rust:1.65.0 AS builder
 
-WORKDIR /opt
+ARG TARGETPLATFORM
 
-RUN apk add curl protoc musl-dev gzip git
+WORKDIR /root
 
-RUN curl -sLO https://github.com/horowitzathome/hello-action/releases/latest/download/hello-action-x86_64-unknown-linux-musl.tar.gz \
-  && tar -xvf hello-action-x86_64-unknown-linux-musl.tar.gz \
-  && chmod +x hello-action
+RUN --mount=type=cache,target=/usr/local/cargo/registry,id=${TARGETPLATFORM} cargo install cargo-strip
 
-############# Now create the image ##############
+COPY . .
 
-FROM gcr.io/distroless/static:nonroot
+RUN --mount=type=cache,target=/usr/local/cargo/registry,id=${TARGETPLATFORM} --mount=type=cache,target=/root/target,id=${TARGETPLATFORM} \
+    cargo build --release && \
+    cargo strip && \
+    mv /root/target/release/hello-action /root
 
-WORKDIR /hello-action
+FROM gcr.io/distroless/cc-debian11
 
-# Copy our build
-COPY --from=builder /opt/hello-action /hello-action/hello-action
-# EXPOSE 8080
-CMD ["/hello-action/hello-action"]
+COPY --from=builder /root/hello-action /
+
+ENTRYPOINT ["./hello-action"]
