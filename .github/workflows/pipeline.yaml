@@ -13,6 +13,7 @@ jobs:
     needs: check
     with:
       image: horowitzathome/hello-action
+      hadolint-ignore: DL3006
       platforms: linux/amd64
     secrets:
       container-registry-username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
