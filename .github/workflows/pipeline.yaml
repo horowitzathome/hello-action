@@ -9,11 +9,10 @@ jobs:
   check:
     uses: horowitzathome/rust-workflows/.github/workflows/check.yaml@main
   build:
-    uses: ectobit/reusable-workflows/.github/workflows/buildx.yaml@main
+    uses: horowitzathome/rust-workflows/.github/workflows/build_all.yaml@main
     needs: check
     with:
       image: horowitzathome/hello-action
-      hadolint-ignore: DL3006
       platforms: linux/amd64
       build-args: |
         RUSTARGS=--target x86_64-unknown-linux-musl
