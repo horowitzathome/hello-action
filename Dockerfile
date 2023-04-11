@@ -17,6 +17,13 @@ RUN --mount=type=cache,target=/usr/local/cargo/registry,id=${TARGETPLATFORM} --m
 #FROM gcr.io/distroless/cc-debian11
 FROM gcr.io/distroless/static:nonroot
 
-COPY --from=builder /root/hello-action /
+WORKDIR /hello-action
 
-ENTRYPOINT ["./hello-action"]
+# Copy our build
+COPY --from=builder /root/hello-action /hello-action/hello-action
+# EXPOSE 8080
+CMD ["/hello-action/hello-action"]
+
+#COPY --from=builder /root/hello-action /
+
+#ENTRYPOINT ["./hello-action"]
