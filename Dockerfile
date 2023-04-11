@@ -19,8 +19,8 @@ RUN --mount=type=cache,target=/usr/local/cargo/registry,id=${TARGETPLATFORM} --m
     mv /root/target/${TARGETDIR}/hello-action /root
 
 #FROM gcr.io/distroless/cc-debian11
-#FROM gcr.io/distroless/static:nonroot
-FROM gcr.io/distroless/base:debug
+FROM gcr.io/distroless/static:nonroot
+#FROM gcr.io/distroless/base:debug
 
 WORKDIR /hello-action
 
