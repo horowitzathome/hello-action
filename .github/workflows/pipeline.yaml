@@ -15,7 +15,7 @@ jobs:
       image: horowitzathome/hello-action
       hadolint-ignore: DL3006
       platforms: linux/amd64
-      build-args: RUST-ARGS="--target x86_64-unknown-linux-musl"
+      build-args: RUSTARGS="--target x86_64-unknown-linux-musl"
     secrets:
       container-registry-username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
       container-registry-password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}

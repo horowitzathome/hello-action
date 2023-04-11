@@ -2,7 +2,7 @@
 FROM rust:1.65.0 AS builder
 
 ARG TARGETPLATFORM
-ARG RUST-ARGS
+ARG RUSTARGS
 
 WORKDIR /root
 
@@ -11,7 +11,7 @@ RUN --mount=type=cache,target=/usr/local/cargo/registry,id=${TARGETPLATFORM} car
 COPY . .
 
 RUN --mount=type=cache,target=/usr/local/cargo/registry,id=${TARGETPLATFORM} --mount=type=cache,target=/root/target,id=${TARGETPLATFORM} \
-    cargo build --release ${RUST-ARGS} && \
+    cargo build --release ${RUSTARGS} && \
     cargo strip && \
     mv /root/target/release/hello-action /root
 
