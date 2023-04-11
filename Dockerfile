@@ -14,7 +14,8 @@ RUN --mount=type=cache,target=/usr/local/cargo/registry,id=${TARGETPLATFORM} --m
     cargo strip && \
     mv /root/target/release/hello-action /root
 
-FROM gcr.io/distroless/cc-debian11
+#FROM gcr.io/distroless/cc-debian11
+FROM gcr.io/distroless/static:nonroot
 
 COPY --from=builder /root/hello-action /
 
