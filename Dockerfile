@@ -27,8 +27,8 @@ WORKDIR /hello-action
 # Copy our build
 COPY --from=builder /root/hello-action /hello-action/hello-action
 # EXPOSE 8080
-CMD ["/hello-action/hello-action"]
+# CMD ["/hello-action/hello-action"]
 
 #COPY --from=builder /root/hello-action /
 
-#ENTRYPOINT ["./hello-action"]
+ENTRYPOINT ["/hello-action/hello-action"]
