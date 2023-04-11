@@ -15,7 +15,7 @@ RUN --mount=type=cache,target=/usr/local/cargo/registry,id=${TARGETPLATFORM} car
 COPY . .
 
 RUN --mount=type=cache,target=/usr/local/cargo/registry,id=${TARGETPLATFORM} --mount=type=cache,target=/root/target,id=${TARGETPLATFORM} \
-    cargo build --release ${TARGET} ${RUSTARGS} && \
+    cargo build --release --target ${TARGET} ${RUSTARGS} && \
     cargo strip && \
     mv /root/target/${TARGET}/release/hello-action /root
 
