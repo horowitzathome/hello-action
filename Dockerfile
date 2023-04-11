@@ -2,8 +2,9 @@
 FROM rust:1.65.0 AS builder
 
 ARG TARGETPLATFORM
+ARG TARGET
 ARG RUSTARGS
-ARG TARGETDIR
+# ARG TARGETDIR
 
 WORKDIR /root
 
@@ -14,9 +15,9 @@ RUN --mount=type=cache,target=/usr/local/cargo/registry,id=${TARGETPLATFORM} car
 COPY . .
 
 RUN --mount=type=cache,target=/usr/local/cargo/registry,id=${TARGETPLATFORM} --mount=type=cache,target=/root/target,id=${TARGETPLATFORM} \
-    cargo build --release ${RUSTARGS} && \
+    cargo build --release ${TARGET} ${RUSTARGS} && \
     cargo strip && \
-    mv /root/target/${TARGETDIR}/hello-action /root
+    mv /root/target/${TARGET}/release/hello-action /root
 
 #FROM gcr.io/distroless/cc-debian11
 FROM gcr.io/distroless/static:nonroot
