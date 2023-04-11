@@ -6,6 +6,8 @@ ARG RUSTARGS
 
 WORKDIR /root
 
+RUN rustup update && rustup target add x86_64-unknown-linux-musl
+
 RUN --mount=type=cache,target=/usr/local/cargo/registry,id=${TARGETPLATFORM} cargo install cargo-strip
 
 COPY . .
