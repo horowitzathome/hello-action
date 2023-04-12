@@ -1,4 +1,7 @@
-name: pipeline
+name: Pipeline
+
+permissions:
+    contents: "write"
 
 on:
   push:
