@@ -16,7 +16,6 @@ jobs:
     needs: check
     with:
       image: horowitzathome/hello-action
-      platforms: linux/amd64
     secrets:
       container-registry-username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
       container-registry-password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
